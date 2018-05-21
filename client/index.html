@@ -2,13 +2,24 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="style.css">
   <title>Money Monkey</title>
 </head>
 
 <body>
 
   <!-- The 'door' to our app. Markup code lives here. -->
-  <div id="app">{{ message }}</div>
+  <div id="app" class="container">
+    <!-- We can use our message variable inside any html tags we want, we make it bigger by wrapping in an h1. -->
+    <div class="container">
+      <div>
+        <h1>{{ message }}</h1>
+      </div>
+      <div>
+        <input type="text">
+      </div>
+    </div>
+  </div>
 
   <!-- Include vue. -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>

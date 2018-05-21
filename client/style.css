@@ -1,0 +1,23 @@
+/* Add some styles to clean up the interface */
+
+.container, body, html {
+  font-family: Arial;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  display: flex;
+  min-width: 300px;
+  border: 1px solid lightgray;
+  outline: none;
+  font: 20px bold;
+  padding: 10px;
+  border-radius: 15px;
+}

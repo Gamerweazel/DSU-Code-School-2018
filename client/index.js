@@ -14,5 +14,5 @@ const app = new Vue({
 // This is known as one way data-binding, our view is bound to this data and updates when it changes.
 setTimeout(() => {
   // We load the page and wait 2 seconds to change our app message.
-  app.message = 'Goodbye'
+  app.message = 'Type something inside the text box!'
 }, 2000)
