@@ -12,6 +12,19 @@
   align-items: center;
 }
 
+button {
+  border-radius: 15px;
+  background: lightsteelblue;
+  border: none;
+  outline: none;
+  padding: 10px;
+  margin: 10px;
+}
+
+button:active {
+  background: lightblue;
+}
+
 input {
   display: flex;
   min-width: 300px;
@@ -20,6 +33,10 @@ input {
   font: 20px bold;
   padding: 10px;
   border-radius: 15px;
+}
+
+.inline-button {
+  display: inline-block;
 }
 
 ul {

@@ -20,6 +20,11 @@
         <!-- Using v-model allows us to attach an input to a piece of data on our app (message in this case) and two-way data binds the information between them to keep in sync. -->
         <input v-model="message" placeholder="Type here" type="text">
       </div>
+      <div>
+        <!-- We can listen to events on a web page with directives! -->
+        <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
+        <button @click="clicked">Click me</button>
+      </div>
     </div>
     <div class="container">
       <h2>Expenses</h2>

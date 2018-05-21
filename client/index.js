@@ -6,8 +6,15 @@ import data from './data.js'
 const app = new Vue({
   // el, short for element. 'Hooks' into the div on index.html page
   el: '#app',
+  // Methods are where we can associate pieces of code to do different things in our app.
+  methods: {
+    // This method is handling the @click directive on our button in index.html.
+    clicked(e) {
+      alert('You clicked the button!')
+    }
+  },
   // Data is the stuff our app cares about. We usually want to show this on the page.
-  data
+  data,
 })
 
 // Using our app variable, we can change things about our instance and the view will update accordingly.
