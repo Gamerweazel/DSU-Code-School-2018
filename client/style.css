@@ -12,6 +12,13 @@
   align-items: center;
 }
 
+#total {
+  color: lightgreen;
+  background: darkslateblue;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 .row {
   flex-direction: row;
   justify-content: space-evenly;

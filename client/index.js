@@ -15,12 +15,22 @@ const app = new Vue({
       // Because description and amount were bound to inputs with v-model, they will contain whatever text is in the input.
       this.expenses.unshift({
         description: this.description,
-        amount: this.amount,
+        // We have to 'cast' this field to a number in order to calculate the total correctly. It comes from the input as a string.
+        amount: Number(this.amount),
         date: moment().format('MMMM Do, YYYY')
       })
       // Remember we can clear the inputs manually.
       this.description = ''
       this.amount = ''
+    }
+  },
+  // Computed things are different from data, we use our data to 'compute' new values that are stored in here.
+  // Anything in computed is cached so is best for things that require more memory to display.
+  computed: {
+    // We want to calculate the total costs for our items. We can have many items so it's best to have it be a computed property.
+    total() {
+      // The reduce method allows us to break down many items into a single value, in this case we take a single value (total) by summing all the amount properties on the expense.
+      return this.expenses.reduce((total, expense) => total + expense.amount, 0)
     }
   },
   // Data is the stuff our app cares about. We usually want to show this on the page.
