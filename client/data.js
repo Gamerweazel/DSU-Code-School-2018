@@ -2,6 +2,8 @@
 const data = {
   // We can store our message here. We can grab it any time with 'data.message'.
   message: 'Hello World!',
+  description: '',
+  amount: '',
   // Expenses is a list, it can hold multiple things like an object, but access them with numbers instead of names.'
   expenses: [
     // Each expense is another object. We call this 'nesting' objects inside other objects.

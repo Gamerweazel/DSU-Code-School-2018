@@ -12,6 +12,12 @@
   align-items: center;
 }
 
+.row {
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 button {
   border-radius: 15px;
   background: lightsteelblue;
@@ -26,13 +32,26 @@ button:active {
 }
 
 input {
-  display: flex;
-  min-width: 300px;
   border: 1px solid lightgray;
   outline: none;
   font: 20px bold;
   padding: 10px;
   border-radius: 15px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
 .inline-button {

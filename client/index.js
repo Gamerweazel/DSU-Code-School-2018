@@ -10,7 +10,10 @@ const app = new Vue({
   methods: {
     // This method is handling the @click directive on our button in index.html.
     clicked(e) {
-      alert('You clicked the button!')
+      // We have access to our data items by prepending 'this' before the name.
+      // This code will add to our expenses list according to what was currently in the inputs when the user saved them.
+      // Because description and amount were bound to inputs with v-model, they will contain whatever text is in the input.
+      this.expenses.push({ description: this.description, amount: this.amount })
     }
   },
   // Data is the stuff our app cares about. We usually want to show this on the page.
@@ -21,5 +24,5 @@ const app = new Vue({
 // This is known as one way data-binding, our view is bound to this data and updates when it changes.
 setTimeout(() => {
   // We load the page and wait 2 seconds to change our app message.
-  app.message = 'Type something inside the text box!'
+  app.message = 'Record an expense'
 }, 2000)

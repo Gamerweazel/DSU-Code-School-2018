@@ -12,25 +12,28 @@
   <div id="app" class="container">
     <!-- We can use our message variable inside any html tags we want, we make it bigger by wrapping in an h1. -->
     <div class="container">
-      <div>
-        <h1 v-cloak>{{ message }}</h1>
-      </div>
-      <div>
+      <h1 v-cloak>{{ message }}</h1>
+      <div class="row">
         <!-- This is a special addition on the input tag that vue provides called a directive, it extends the functionality of a normal element. -->
-        <!-- Using v-model allows us to attach an input to a piece of data on our app (message in this case) and two-way data binds the information between them to keep in sync. -->
-        <input v-model="message" placeholder="Type here" type="text">
+        <!-- Using v-model allows us to attach an input to a piece of data on our app and two-way data binds the information between them to keep in sync. -->
+        <input v-model="description" placeholder="Description" type="text">
+        <input v-model="amount" placeholder="Amount" type="text">
+        <button @click="clicked">Add Item</button>
       </div>
-      <div>
-        <!-- We can listen to events on a web page with directives! -->
-        <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
-        <button @click="clicked">Click me</button>
-      </div>
-    </div>
-    <div class="container">
+      <!-- We can listen to events on a web page with directives! -->
+      <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
       <h2>Expenses</h2>
-      <ul v-cloak v-for="expense in expenses">
-        <li>{{ expense.description }} ${{ expense.amount }}</li>
-      </ul>
+      <!-- Tables are a better choice for formatting data such as this. -->
+      <table>
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+        <tr v-for="expense in expenses">
+          <td>{{ expense.description }}</td>
+          <td>${{ expense.amount }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 
