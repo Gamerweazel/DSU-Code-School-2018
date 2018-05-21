@@ -22,6 +22,11 @@ input {
   border-radius: 15px;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 /* Any element that uses the v-cloak directive will hide until loaded */
 [v-cloak] {
   display: none;

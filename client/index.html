@@ -21,6 +21,12 @@
         <input v-model="message" placeholder="Type here" type="text">
       </div>
     </div>
+    <div class="container">
+      <h2>Expenses</h2>
+      <ul v-cloak v-for="expense in expenses">
+        <li>{{ expense.description }} ${{ expense.amount }}</li>
+      </ul>
+    </div>
   </div>
 
   <!-- Include vue. -->
