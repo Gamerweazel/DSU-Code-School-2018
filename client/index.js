@@ -13,7 +13,11 @@ const app = new Vue({
       // We have access to our data items by prepending 'this' before the name.
       // This code will add to our expenses list according to what was currently in the inputs when the user saved them.
       // Because description and amount were bound to inputs with v-model, they will contain whatever text is in the input.
-      this.expenses.unshift({ description: this.description, amount: this.amount })
+      this.expenses.unshift({
+        description: this.description,
+        amount: this.amount,
+        date: moment().format('MMMM Do, YYYY')
+      })
       // Remember we can clear the inputs manually.
       this.description = ''
       this.amount = ''

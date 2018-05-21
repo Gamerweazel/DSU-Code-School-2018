@@ -28,10 +28,12 @@
         <tr>
           <th>Description</th>
           <th>Amount</th>
+          <th>Date</th>
         </tr>
         <tr v-for="expense in expenses">
           <td>{{ expense.description }}</td>
           <td>${{ expense.amount }}</td>
+          <td>{{ expense.date }}</td>
         </tr>
       </table>
     </div>
