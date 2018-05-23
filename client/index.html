@@ -42,7 +42,7 @@
           </tr>
           <tr v-for="expense in expenses">
             <td>{{ expense.description }}</td>
-            <td>${{ expense.amount }}</td>
+            <td>${{ expense.amount.toFixed(2) }}</td>
             <td>{{ expense.date }}</td>
           </tr>
         </table>
