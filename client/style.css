@@ -91,3 +91,7 @@ ul {
 .scrollable {
   overflow-y: scroll;
 }
+
+.delete {
+  background: lightcoral;
+}
