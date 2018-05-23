@@ -14,11 +14,15 @@
     <div class="container">
       <h1 v-cloak>{{ message }}</h1>
       <div class="row">
-        <!-- This is a special addition on the input tag that vue provides called a directive, it extends the functionality of a normal element. -->
-        <!-- Using v-model allows us to attach an input to a piece of data on our app and two-way data binds the information between them to keep in sync. -->
-        <input v-model="description" placeholder="Description" type="text">
-        <input v-model="amount" placeholder="Amount" type="text">
-        <button @click="clicked">Add Item</button>
+          <!-- HTML forms provide a better use experience, they allow the user to hit the enter key to submit the data instead of having to click on the button. -->
+          <!-- Vue provides a directive for the submit event that will allow us to capture that event and run our custom code to validate the data. -->
+        <form @submit.prevent="clicked">
+          <!-- This is a special addition on the input tag that vue provides called a directive, it extends the functionality of a normal element. -->
+          <!-- Using v-model allows us to attach an input to a piece of data on our app and two-way data binds the information between them to keep in sync. -->
+          <input v-model="description" placeholder="Description" type="text">
+          <input v-model="amount" placeholder="Amount" type="text">
+          <button @click="clicked">Add Item</button>
+        </form>
         <!-- We are using directives to show error messages due to failed validations on a specific field. -->
         <div v-cloak v-if="!valid.description" class="error"><b>Enter a valid description</b></div>
         <div v-cloak v-if="!valid.amount" class="error"><b>Enter a valid amount</b></div>
