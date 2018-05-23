@@ -54,6 +54,7 @@ const app = new Vue({
       const indexOfExpense = this.expenses.findIndex(expense => expense.id === id)
       // Vue will automatically update the data from the splicing operation. It is worth noting that splice mutates the original array.
       this.expenses.splice(indexOfExpense, 1)
+      this.editingId = null
     },
     updateExpense(id) {
       // Again, we need to actually find where this item is in our expenses list.
