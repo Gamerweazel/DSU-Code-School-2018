@@ -24,7 +24,7 @@ const app = new Vue({
       return true
     },
     // This method is handling the @click directive on our button in index.html.
-    clicked(e) {
+    addExpense(e) {
       // We have access to our data items by prepending 'this' before the name.
       // This code will add to our expenses list according to what was currently in the inputs when the user saved them.
       // Because description and amount were bound to inputs with v-model, they will contain whatever text is in the input.
@@ -32,6 +32,7 @@ const app = new Vue({
         // This is known as data validation, we use it on the client and server side in order to make sure the data we get from the user is accurate and fits our expectations.
         // Doing validation in only one place either impacts user experience or compromises security, best to do it both places.
         this.expenses.unshift({
+          id: this.expenses.length,
           description: this.description,
           // We have to 'cast' this field to a number in order to calculate the total correctly. It comes from the input as a string.
           amount: Number(this.amount),
@@ -42,7 +43,13 @@ const app = new Vue({
         this.amount = ''
         this.$refs.descriptionInput.focus()
       }
-    }
+    },
+    deleteExpense(id) {
+      // If we want to remove expenses, we can simple locate the index of the expense and use a splice operation.
+      const indexOfExpense = this.expenses.findIndex(expense => expense.id === id)
+      // Vue will automatically update the data from the splicing operation. It is worth noting that splice mutates the original array.
+      this.expenses.splice(indexOfExpense, 1)
+    },
   },
   // Computed things are different from data, we use our data to 'compute' new values that are stored in here.
   // Anything in computed is cached so is best for things that require more memory to display.

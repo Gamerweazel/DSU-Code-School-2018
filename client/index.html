@@ -16,14 +16,14 @@
       <div class="row">
           <!-- HTML forms provide a better use experience, they allow the user to hit the enter key to submit the data instead of having to click on the button. -->
           <!-- Vue provides a directive for the submit event that will allow us to capture that event and run our custom code to validate the data. -->
-        <form @submit.prevent="clicked">
+        <form @submit.prevent="addExpense">
           <!-- This is a special addition on the input tag that vue provides called a directive, it extends the functionality of a normal element. -->
           <!-- Using v-model allows us to attach an input to a piece of data on our app and two-way data binds the information between them to keep in sync. -->
           <input v-model="description" ref="descriptionInput" placeholder="Description" type="text">
           <!-- We can give a ref attribute on an element we want finer control over, if manually touching the DOM is the desired goal. -->
           <!-- If we want to manually focus an input, for example, then refs are a good choice. -->
           <input v-model="amount" placeholder="Amount" type="text">
-          <button @click="clicked">Add Item</button>
+          <button @click="addExpense">Add Item</button>
         </form>
         <!-- We are using directives to show error messages due to failed validations on a specific field. -->
         <div v-cloak v-if="!valid.description" class="error"><b>Enter a valid description</b></div>
@@ -31,19 +31,21 @@
       </div>
       <!-- We can listen to events on a web page with directives! -->
       <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
-      <h2>Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
+      <h2 v-if="expenses.length">Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
       <!-- Tables are a better choice for formatting data such as this. -->
       <div id="expenses" class="scrollable">
         <table>
-          <tr>
+          <tr v-if="expenses.length">
             <th>Description</th>
             <th>Amount</th>
             <th>Date</th>
+            <th></th>
           </tr>
           <tr v-for="expense in expenses">
             <td>{{ expense.description }}</td>
             <td>${{ expense.amount.toFixed(2) }}</td>
             <td>{{ expense.date }}</td>
+            <td><button @click="deleteExpense(expense.id)" class="delete">Delete</button></td>
           </tr>
         </table>
       </div>
