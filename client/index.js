@@ -9,12 +9,19 @@ const app = new Vue({
   // Methods are where we can associate pieces of code to do different things in our app.
   methods: {
     isValid() {
-      const valid = (
-        (this.description && this.amount)
-        &&
-        (!isNaN(Number(this.amount)))
-      )
-      return valid
+      this.valid = {
+        // We can now use this method to update our valid object. We will use this more detailed information to display messages to the user.
+        // We didn't use the boolean caster before, they simple act as a caster like Number() for our amount. It will cast things like empty string '' or 0 to an explicit 'false'.
+        description: Boolean(this.description),
+        amount: Boolean(this.amount) && (!isNaN(Number(this.amount))),
+      }
+      // We will look over all fields in the 'this.valid' object and prevent the submission if any fail their respective check.
+      // This allows us to extend our validations to many more fields will little code changes.
+      for (const key in this.valid) {
+        if (!this.valid[key])
+          return false
+      }
+      return true
     },
     // This method is handling the @click directive on our button in index.html.
     clicked(e) {
@@ -22,6 +29,8 @@ const app = new Vue({
       // This code will add to our expenses list according to what was currently in the inputs when the user saved them.
       // Because description and amount were bound to inputs with v-model, they will contain whatever text is in the input.
       if (this.isValid()) {
+        // This is known as data validation, we use it on the client and server side in order to make sure the data we get from the user is accurate and fits our expectations.
+        // Doing validation in only one place either impacts user experience or compromises security, best to do it both places.
         this.expenses.unshift({
           description: this.description,
           // We have to 'cast' this field to a number in order to calculate the total correctly. It comes from the input as a string.

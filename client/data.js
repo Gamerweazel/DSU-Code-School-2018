@@ -1,5 +1,10 @@
 // data is an 'object'. Objects store data, we use them to display things in our app.
 const data = {
+  // A new data item can represent a piece of 'state' of the app. This object 'valid' will allow us to keep track of the validity of the data the user is giving us.
+  valid: {
+    description: true,
+    amount: true,
+  },
   // We can store our message here. We can grab it any time with 'data.message'.
   message: 'Hello World!',
   description: '',
