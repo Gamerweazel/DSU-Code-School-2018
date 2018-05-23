@@ -19,7 +19,9 @@
         <form @submit.prevent="clicked">
           <!-- This is a special addition on the input tag that vue provides called a directive, it extends the functionality of a normal element. -->
           <!-- Using v-model allows us to attach an input to a piece of data on our app and two-way data binds the information between them to keep in sync. -->
-          <input v-model="description" placeholder="Description" type="text">
+          <input v-model="description" ref="descriptionInput" placeholder="Description" type="text">
+          <!-- We can give a ref attribute on an element we want finer control over, if manually touching the DOM is the desired goal. -->
+          <!-- If we want to manually focus an input, for example, then refs are a good choice. -->
           <input v-model="amount" placeholder="Amount" type="text">
           <button @click="clicked">Add Item</button>
         </form>

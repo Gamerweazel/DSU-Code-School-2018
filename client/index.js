@@ -40,6 +40,7 @@ const app = new Vue({
         // Remember we can clear the inputs manually.
         this.description = ''
         this.amount = ''
+        this.$refs.descriptionInput.focus()
       }
     }
   },
