@@ -22,7 +22,7 @@
       </div>
       <!-- We can listen to events on a web page with directives! -->
       <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
-      <h2>Total Expenses <span id="total">${{ total }}</span></h2>
+      <h2>Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
       <!-- Tables are a better choice for formatting data such as this. -->
       <table>
         <tr>
@@ -32,7 +32,7 @@
         </tr>
         <tr v-for="expense in expenses">
           <td>{{ expense.description }}</td>
-          <td>${{ expense.amount }}</td>
+          <td>${{ expense.amount.toFixed(2) }}</td>
           <td>{{ expense.date }}</td>
         </tr>
       </table>
