@@ -5,6 +5,9 @@ const data = {
     description: true,
     amount: true,
   },
+  // We will use the id of an expense to determine if we should be adding or updating an item and reuse the create form.
+  // Since we aren't editing in the very beginning, this should be null.
+  editingId: null,
   // We can store our message here. We can grab it any time with 'data.message'.
   message: 'Hello World!',
   description: '',
