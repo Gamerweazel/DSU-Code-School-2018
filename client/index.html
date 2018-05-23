@@ -33,18 +33,20 @@
       <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
       <h2>Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
       <!-- Tables are a better choice for formatting data such as this. -->
-      <table>
-        <tr>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-        <tr v-for="expense in expenses">
-          <td>{{ expense.description }}</td>
-          <td>${{ expense.amount.toFixed(2) }}</td>
-          <td>{{ expense.date }}</td>
-        </tr>
-      </table>
+      <div id="expenses" class="scrollable">
+        <table>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+          <tr v-for="expense in expenses">
+            <td>{{ expense.description }}</td>
+            <td>${{ expense.amount }}</td>
+            <td>{{ expense.date }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 

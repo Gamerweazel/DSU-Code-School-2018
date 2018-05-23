@@ -83,3 +83,11 @@ ul {
   margin: 5px;
   padding: 5px;
 }
+
+#expenses {
+  max-height: 500px;
+}
+
+.scrollable {
+  overflow-y: scroll;
+}
