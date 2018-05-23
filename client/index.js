@@ -52,6 +52,16 @@ const app = new Vue({
       return this.expenses.reduce((total, expense) => total + expense.amount, 0)
     }
   },
+  // Watchers are a way to observe changes in your data and run specific pieces of code to handle them.
+  watch: {
+    // We 'watch' description and amount data for changes to remove validity errors. This is purely for a better user experience.
+    description() {
+      this.valid.description = true
+    },
+    amount() {
+      this.valid.amount = true
+    },
+  },
   // Data is the stuff our app cares about. We usually want to show this on the page.
   data,
 })
