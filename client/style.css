@@ -74,3 +74,12 @@ ul {
 [v-cloak] {
   display: none;
 }
+
+.error {
+  text-align: center;
+  background: lightcoral;
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+}

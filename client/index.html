@@ -19,6 +19,9 @@
         <input v-model="description" placeholder="Description" type="text">
         <input v-model="amount" placeholder="Amount" type="text">
         <button @click="clicked">Add Item</button>
+        <!-- We are using directives to show error messages due to failed validations on a specific field. -->
+        <div v-cloak v-if="!valid.description" class="error"><b>Enter a valid description</b></div>
+        <div v-cloak v-if="!valid.amount" class="error"><b>Enter a valid amount</b></div>
       </div>
       <!-- We can listen to events on a web page with directives! -->
       <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
