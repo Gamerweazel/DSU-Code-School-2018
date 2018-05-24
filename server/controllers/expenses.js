@@ -25,7 +25,14 @@ module.exports = {
       })
       .catch(e => console.log(e))
   },
-  updateExpense: (req, res) => res.send('update an expense'),
+  updateExpense: (req, res) => {
+    Expense.findByIdAndUpdate(req.params.id, {
+      description: req.body.description,
+      amount: req.body.amount
+    })
+      .then(() => res.send('Document update successful'))
+      .catch(e => console.log(e))
+  },
   deleteExpense: (req, res) => res.send('delete an expense'),
   mySecretFunction: (req, res) => res.send('the secret password is "ice-princess"')
 }
