@@ -6,7 +6,12 @@ module.exports = {
       .then(docs => res.json(docs))
       .catch(e => console.log(e))
   },
-  getExpense: (req, res) => res.send('get a single expense'),
+  getExpense: (req, res) => {
+    // Remember the :id in our get expenses path? This is where it comes in handy.
+    Expense.findById(req.params.id)
+      .then(doc => res.json(doc))
+      .catch(e => console.log(e))
+  },
   createExpense: (req, res) => {
     // We now have the 'body' part of the request thanks to bodyparser module!
     // This allows us to finally take client data from a request in order to create our expenses.
