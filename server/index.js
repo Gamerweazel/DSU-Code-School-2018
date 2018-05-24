@@ -4,10 +4,13 @@ const mongoose = require('mongoose')
 const app = express()
 // Logger allows us to see the requests coming into our app. It's good information to have when monitoring or troubleshooting.
 const logger = require('morgan')
+const bodyParser = require('body-parser')
 const expenses = require('./routes/expenses')
 
 // Saying app.use means express will use this as a 'middleware'. It will be run before all requests since it is the first one declared in the file.
 app.use(logger('tiny'))
+// We use the bodyparser module to access the body part of the request for creating and updating data from a client.
+app.use(bodyParser.json())
 
 // use our client folder to serve up our index page, we no longer using python server we are using our own server.
 app.use(express.static(`${__dirname}/../client`))

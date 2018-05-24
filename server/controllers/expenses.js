@@ -8,9 +8,11 @@ module.exports = {
   },
   getExpense: (req, res) => res.send('get a single expense'),
   createExpense: (req, res) => {
+    // We now have the 'body' part of the request thanks to bodyparser module!
+    // This allows us to finally take client data from a request in order to create our expenses.
     Expense.create({
-      description: 'Shoe polish',
-      amount: 15.99,
+      description: req.body.description,
+      amount: req.body.amount
     })
       .then(doc => {
         console.log('Document created successfully', doc)
