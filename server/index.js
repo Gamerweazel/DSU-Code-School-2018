@@ -1,6 +1,11 @@
 // We must include express, now that we are outside the browser the rules change slightly. We must use node and npm to run our code.
 const express = require('express')
 const app = express()
+// Logger allows us to see the requests coming into our app. It's good information to have when monitoring or troubleshooting.
+const logger = require('morgan')
+
+// Saying app.use means express will use this as a 'middleware'. It will be run before all requests since it is the first one declared in the file.
+app.use(logger('tiny'))
 
 // use our client folder to serve up our index page, we no longer using python server we are using our own server.
 app.use(express.static(`${__dirname}/../client`))
