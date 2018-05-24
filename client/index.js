@@ -1,11 +1,19 @@
 // We want something from another file so we ask for it. We should start our local server to request it.
 import data from './data.js'
+import api from './api.js'
 
 // Vue instance. Controls the app logic.
 // We can do additional things with the instance if we give a variable name.
 const app = new Vue({
   // el, short for element. 'Hooks' into the div on index.html page
   el: '#app',
+  created() {
+    // Created is a lifecycle method, we are given opportunities to run code before and after our vue instance renders
+    // We will fetch our expenses from our server and populate our expenses list.
+    api.getExpenses()
+      .then(expenses => this.expenses = expenses)
+      .catch(e => console.log(e))
+  },
   // Methods are where we can associate pieces of code to do different things in our app.
   methods: {
     isValid() {
@@ -41,38 +49,49 @@ const app = new Vue({
       }
     },
     addExpense() {
-      this.expenses.unshift({
-        id: this.expenses.length,
-        description: this.description,
-        // We have to 'cast' this field to a number in order to calculate the total correctly. It comes from the input as a string.
-        amount: Number(this.amount),
-        date: moment().format('MMMM Do, YYYY')
-      })
+      // We make a call to our server to create the expense instead of altering the list locally.
+      // When the call succeeds, we will then add it to our list locally.
+      api.createExpense({
+          description: this.description,
+          amount: this.amount
+        })
+        .then(expense => this.expenses.unshift(expense))
+        .catch(e => console.log(e))
     },
     deleteExpense(id) {
       // If we want to remove expenses, we can simple locate the index of the expense and use a splice operation.
-      const indexOfExpense = this.expenses.findIndex(expense => expense.id === id)
-      // Vue will automatically update the data from the splicing operation. It is worth noting that splice mutates the original array.
-      this.expenses.splice(indexOfExpense, 1)
-      this.editingId = null
+      api.deleteExpense(id)
+        .then(() => {
+          const indexOfExpense = this.expenses.findIndex(expense => expense._id === id)
+          // Vue will automatically update the data from the splicing operation. It is worth noting that splice mutates the original array.
+          this.expenses.splice(indexOfExpense, 1)
+          this.editingId = null
+        })
     },
     updateExpense(id) {
-      // Again, we need to actually find where this item is in our expenses list.
-      const indexOfExpense = this.expenses.findIndex(expense => expense.id === id)
-      // The splice operation takes an optional replacement object as the last argument, since this is an update we remove the item and insert an item with the same id but updated fields.
-      this.expenses.splice(indexOfExpense, 1, {
-        id,
-        description: this.description,
-        // We have to 'cast' this field to a number in order to calculate the total correctly. It comes from the input as a string.
-        amount: Number(this.amount),
-        date: moment().format('MMMM Do, YYYY')
-      })
-      this.editingId = null
+      // Destructuring is an ES6 feature and helps avoid retyping 'this'.
+      const { description, amount } = this
+      api.updateExpense(id, {
+        // If the properties match the values of an object we can just use the names directly instead of 'property: value'.
+          description,
+          amount,
+        })
+        .then(() => {
+          // Again, we need to actually find where this item is in our expenses list.
+          const indexOfExpense = this.expenses.findIndex(expense => expense._id === id)
+          // The splice operation takes an optional replacement object as the last argument, since this is an update we remove the item and insert an item with the same id but updated fields.
+          this.expenses.splice(indexOfExpense, 1, {
+            ...this.expenses[indexOfExpense],
+            description,
+            amount: Number(amount),
+          })
+          this.editingId = null
+        })
     },
     setEditingId(id) {
       // We set the currently edited item to the clicked item.
       this.editingId = id
-      const indexOfExpense = this.expenses.findIndex(expense => expense.id === id)
+      const indexOfExpense = this.expenses.findIndex(expense => expense._id === id)
       // Populate our fields with the selected expense's fields.
       this.description = this.expenses[indexOfExpense].description
       this.amount = this.expenses[indexOfExpense].amount

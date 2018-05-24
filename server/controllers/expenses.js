@@ -21,7 +21,7 @@ module.exports = {
     })
       .then(doc => {
         console.log('Document created successfully', doc)
-        res.status(200).send('Document created successfully')
+        res.json(doc)
       })
       .catch(e => console.log(e))
   },

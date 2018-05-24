@@ -31,11 +31,11 @@
       </div>
       <!-- We can listen to events on a web page with directives! -->
       <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
-      <h2 v-if="expenses.length">Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
+      <h2 v-cloak v-if="expenses.length">Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
       <!-- Tables are a better choice for formatting data such as this. -->
-      <div id="expenses" class="scrollable">
+      <div v-cloak v-if="expenses.length" id="expenses" class="scrollable">
         <table>
-          <tr v-if="expenses.length">
+          <tr>
             <th>Description</th>
             <th>Amount</th>
             <th>Date</th>
@@ -46,8 +46,8 @@
             <td>${{ expense.amount.toFixed(2) }}</td>
             <td>{{ expense.date }}</td>
             <td>
-              <button @click="setEditingId(expense.id)" class="edit">Edit</button>
-              <button @click="deleteExpense(expense.id)" class="delete">Delete</button>
+              <button @click="setEditingId(expense._id)" class="edit">Edit</button>
+              <button @click="deleteExpense(expense._id)" class="delete">Delete</button>
             </td>
           </tr>
         </table>

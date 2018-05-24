@@ -13,29 +13,8 @@ const data = {
   description: '',
   amount: '',
   // Expenses is a list, it can hold multiple things like an object, but access them with numbers instead of names.'
-  expenses: [
-    // Each expense is another object. We call this 'nesting' objects inside other objects.
-    {
-      // Adding a unique identifier is paramount to all the CRUD operations.
-      id: 0,
-      amount: 15.06,
-      description: 'Groceries',
-      // This is from the date library we included in our index.html
-      date: moment().subtract(1, 'days').format('MMMM Do, YYYY'),
-    },
-    {
-      id: 1,
-      amount: 10.99,
-      description: 'Movie Ticket',
-      date: moment().subtract(1, 'months').format('MMMM Do, YYYY'),
-    },
-    {
-      id: 2,
-      amount: 29.99,
-      description: 'Oil Change',
-      date: moment().subtract(3, 'months').format('MMMM Do, YYYY'),
-    },
-  ]
+  expenses: [],
+  // We are now grabbing our expenses from the server, so we can get rid of our mock data!
 }
 
 // Make our data available to our other files.
