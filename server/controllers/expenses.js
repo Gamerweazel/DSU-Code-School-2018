@@ -33,6 +33,10 @@ module.exports = {
       .then(() => res.send('Document update successful'))
       .catch(e => console.log(e))
   },
-  deleteExpense: (req, res) => res.send('delete an expense'),
+  deleteExpense: (req, res) => {
+    Expense.findByIdAndRemove(req.params.id)
+      .then(() => res.send('Document delete successful'))
+      .catch(e => console.log(e))
+  },
   mySecretFunction: (req, res) => res.send('the secret password is "ice-princess"')
 }
