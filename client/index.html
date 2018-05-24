@@ -2,61 +2,71 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="style.css">
+  <link href="style.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
   <title>Money Monkey</title>
 </head>
 
 <body>
 
   <!-- The 'door' to our app. Markup code lives here. -->
-  <div id="app" class="container">
-    <!-- We can use our message variable inside any html tags we want, we make it bigger by wrapping in an h1. -->
-    <div class="container">
-      <h1 v-cloak>{{ message }}</h1>
-      <div class="row">
-          <!-- HTML forms provide a better use experience, they allow the user to hit the enter key to submit the data instead of having to click on the button. -->
-          <!-- Vue provides a directive for the submit event that will allow us to capture that event and run our custom code to validate the data. -->
-        <form @submit.prevent="saveExpense">
-          <!-- This is a special addition on the input tag that vue provides called a directive, it extends the functionality of a normal element. -->
-          <!-- Using v-model allows us to attach an input to a piece of data on our app and two-way data binds the information between them to keep in sync. -->
-          <input v-model="description" ref="descriptionInput" placeholder="Description" type="text">
-          <!-- We can give a ref attribute on an element we want finer control over, if manually touching the DOM is the desired goal. -->
-          <!-- If we want to manually focus an input, for example, then refs are a good choice. -->
-          <input v-model="amount" placeholder="Amount" type="text">
-          <button @click="saveExpense">{{ saveButtonText }}</button>
-        </form>
-        <!-- We are using directives to show error messages due to failed validations on a specific field. -->
-        <div v-cloak v-if="!valid.description" class="error"><b>Enter a valid description</b></div>
-        <div v-cloak v-if="!valid.amount" class="error"><b>Enter a valid amount</b></div>
-      </div>
-      <!-- We can listen to events on a web page with directives! -->
-      <!-- They look like '@' followed by the name of the event (@click). Whatever follows the equals sign needs to be in our vue instance as a method. -->
-      <h2 v-cloak v-if="expenses.length">Total Expenses <span id="total">${{ total.toFixed(2) }}</span></h2>
-      <!-- Tables are a better choice for formatting data such as this. -->
-      <div v-cloak v-if="expenses.length" id="expenses" class="scrollable">
-        <table>
-          <tr>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th></th>
-          </tr>
-          <tr v-for="expense in expenses">
-            <td>{{ expense.description }}</td>
-            <td>${{ expense.amount.toFixed(2) }}</td>
-            <td>{{ expense.date }}</td>
-            <td>
-              <button @click="setEditingId(expense._id)" class="edit">Edit</button>
-              <button @click="deleteExpense(expense._id)" class="delete">Delete</button>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
+  <div id="app" v-cloak>
+    <!-- Vuetify provides 'components' for us! Components are reusable pieces of markup that accept different attributes called 'props'-->
+    <v-app id="inspire">
+      <v-toolbar app>
+        <v-toolbar-side-icon>
+          <v-avatar v-cloak>
+            <img width="100" height="100" src="https://cdn4.iconfinder.com/data/icons/hana-emojis-monkey-edition-glyph/100/monkey_glyph-22-512.png" alt="avatar">
+          </v-avatar>
+        </v-toolbar-side-icon>
+        <v-toolbar-title>Money Monkey</v-toolbar-title>
+      </v-toolbar>
+
+      <v-content>
+        <v-container>
+          <h1>{{ message }}</h1>
+
+          <v-form @keyup.native.enter="saveExpense" class="ma-5">
+            <v-text-field ref="descriptionInput" v-model="description" ref="descriptionInput" placeholder="Description" type="text"></v-text-field>
+            <v-text-field v-model="amount" placeholder="Amount" type="text"></v-text-field>
+            <v-btn color="info" @click="saveExpense">{{ saveButtonText }}</v-btn>
+
+            <v-alert :value="!valid.description" type="error">
+                Enter a valid description
+            </v-alert>
+
+            <v-alert :value="!valid.amount" type="error">
+                Enter a valid amount
+            </v-alert>
+
+          </v-form>
+
+          <h2 class="text-xs-center ma-3" v-if="expenses.length">Total Expenses
+              <v-chip color="green" text-color="white">${{ total.toFixed(2) }}</v-chip>
+          </h2>
+
+          <v-data-table :headers="headers" :items="expenses" hide-actions class="elevation-1">
+            <template slot="items" slot-scope="props">
+              <td class="text-xs-left"><b>{{ props.item.description }}</b></td>
+              <td class="text-xs-left">${{ props.item.amount.toFixed(2) }}</td>
+              <td class="text-xs-left">{{ props.item.date }}</td>
+              <td>
+                <v-btn fab small @click="setEditingId(props.item._id)"><v-icon>edit</v-icon></v-btn>
+                <v-btn outline fab small @click="deleteExpense(props.item._id)" color="error"><v-icon>delete</v-icon></v-btn>
+              </td>
+            </template>
+          </v-data-table>
+
+        </v-container>
+      </v-content>
+    </v-app>
   </div>
 
   <!-- Include vue. -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- Include vuetify components. -->
+  <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
   <!-- The 'brains' of our app. Vue code lives here. -->
   <script src="index.js" type="module"></script>
   <!-- We usually talk to somebody else (the server) to get data. But for now, we will store it locally. -->

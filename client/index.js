@@ -97,9 +97,6 @@ const app = new Vue({
       this.amount = this.expenses[indexOfExpense].amount
       // Focus and select the text in the input for a better user experience.
       this.$refs.descriptionInput.focus()
-      setTimeout(() => {
-        this.$refs.descriptionInput.select()
-      }, 50)
     }
   },
   // Computed things are different from data, we use our data to 'compute' new values that are stored in here.

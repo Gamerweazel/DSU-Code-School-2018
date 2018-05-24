@@ -14,6 +14,25 @@ const data = {
   amount: '',
   // Expenses is a list, it can hold multiple things like an object, but access them with numbers instead of names.'
   expenses: [],
+  headers: [{
+      text: 'Description',
+      align: 'left',
+      sortable: false,
+      value: 'description'
+    },
+    {
+      text: 'Amount',
+      value: 'amount'
+    },
+    {
+      text: 'Date',
+      value: 'date'
+    },
+    {
+      text: 'Actions',
+      sortable: false
+    },
+  ],
   // We are now grabbing our expenses from the server, so we can get rid of our mock data!
 }
 
