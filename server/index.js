@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 // Logger allows us to see the requests coming into our app. It's good information to have when monitoring or troubleshooting.
 const logger = require('morgan')
+const expenses = require('./routes/expenses')
 
 // Saying app.use means express will use this as a 'middleware'. It will be run before all requests since it is the first one declared in the file.
 app.use(logger('tiny'))
@@ -15,6 +16,9 @@ app.get('/', (req, res) => res.sendFile('index.html'))
 
 // Add your own routes and send messages to the requester. A request to localhost:8000/hello will be directed to this route.
 app.get('/hello', (req, res) => res.send('hello'))
+
+// We can use our router exported from the routes/expenses.js file to handle all requests matching /expenses
+app.use('/expenses', expenses)
 
 // This allows the server to 'wake up' and get ready to respond to any incoming requests.
 app.listen('8000', () => console.log('App listening on port 8000'))
