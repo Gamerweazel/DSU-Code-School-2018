@@ -34,7 +34,7 @@ const myMiddleWare = (req, res, next) => {
 router.get('/secrets/secret', myMiddleWare, expenseController.mySecretFunction)
 
 // Different actions exist other than get, post occurs when a client wants to make new data.
-router.post('/:id', expenseController.createExpense)
+router.post('/', expenseController.createExpense)
 
 // Put is used for updating data.
 router.put('/:id', expenseController.updateExpense)
