@@ -1,7 +1,11 @@
 const Expense = require('../models/expense')
 
 module.exports = {
-  listExpenses: (req, res) => res.send('get all expenses'),
+  listExpenses: (req, res) => {
+    Expense.find()
+      .then(docs => res.json(docs))
+      .catch(e => console.log(e))
+  },
   getExpense: (req, res) => res.send('get a single expense'),
   createExpense: (req, res) => {
     Expense.create({
