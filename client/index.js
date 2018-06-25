@@ -20,8 +20,8 @@ const app = new Vue({
       this.valid = {
         // We can now use this method to update our valid object. We will use this more detailed information to display messages to the user.
         // We didn't use the boolean caster before, they simple act as a caster like Number() for our amount. It will cast things like empty string '' or 0 to an explicit 'false'.
-        description: Boolean(this.description),
-        amount: Boolean(this.amount) && (!isNaN(Number(this.amount))),
+        description: this.validateDescription(),
+        amount: this.validateAmount()
       }
       // We will look over all fields in the 'this.valid' object and prevent the submission if any fail their respective check.
       // This allows us to extend our validations to many more fields will little code changes.
@@ -30,6 +30,12 @@ const app = new Vue({
           return false
       }
       return true
+    },
+    validateDescription() {
+      return Boolean(this.description)
+    },
+    validateAmount() {
+      return Boolean(this.amount) && (!isNaN(Number(this.amount)))
     },
     // This method is handling the @click directive on our button in index.html.
     saveExpense(e) {
@@ -114,11 +120,17 @@ const app = new Vue({
   // Watchers are a way to observe changes in your data and run specific pieces of code to handle them.
   watch: {
     // We 'watch' description and amount data for changes to remove validity errors. This is purely for a better user experience.
-    description() {
-      this.valid.description = true
+    description(val) {
+      if (val)
+        this.valid.description = this.validateDescription()
+      else
+        this.valid.description = true
     },
-    amount() {
-      this.valid.amount = true
+    amount(val) {
+      if (val)
+        this.valid.amount = this.validateAmount()
+      else
+        this.valid.amount = true
     },
   },
   // Data is the stuff our app cares about. We usually want to show this on the page.
